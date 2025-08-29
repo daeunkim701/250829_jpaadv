@@ -10,7 +10,7 @@ public interface PostRepository extends JpaRepository<Post, Long> {
     // JPQL
     @Query("SELECT p FROM Post p ORDER BY p.id DESC") // ID 기준으로 내림차순
     List<Post> findAllDesc(); // JPQL
-    // JOIN은 User -> Spring Security에 추가
+    // JOIN은 User -> Spring Security에 추가하고...
 
-    // save, findAll -> JPA에 다 있어 -> 여러 키워드 조합해서 메서드들 만들어내는 기능도 있대
+    // save, find all ... -> JPA에 다 있어 -> 여러 키워드를 조합해서 메서드 들 만들어내는 기능
 }

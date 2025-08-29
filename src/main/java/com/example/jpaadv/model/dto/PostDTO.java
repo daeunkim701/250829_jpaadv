@@ -2,14 +2,9 @@ package com.example.jpaadv.model.dto;
 
 import com.example.jpaadv.model.entity.Post;
 import lombok.Data;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import org.springframework.cglib.core.Local;
-
 import java.time.LocalDateTime;
 
-// Form - jsp에서의 el태그나 thymeleaf에서의 object 기능을 쓸 때 getter setter가 필수인 것처럼
+// Form - jsp(el). thymeleaf(object) -> getter, setter
 public class PostDTO {
     // nested class
     // form 요청을 받기 위한 class
@@ -17,24 +12,41 @@ public class PostDTO {
 //    @Setter
 //    @NoArgsConstructor
     @Data
-    // 걍 Data로 대체
     public static class SaveRequest {
-        private String title; // ID, audit(CreatedAt, UpdatedAt 같은 거 안 넣어줘도 됨 JPA가 다 해줌)
+        private String title; // ID, audit(CreatedAt, UpdatedAt...)
         private String content;
         private String author;
 
-        // DTO -> Entity로 변환하기
+        // DTO -> Entity
         public Post toEntity() {
             return Post.builder()
-                    .title(title)
+                    .author(author)
                     .content(content)
-                    .author(author) // 순서 바뀌어도 ㄱㅊ
+                    .title(title) // 순서가 꼭 고정적인 필요가 없는...
                     .build();
         }
     }
-    // 외부로 데이터가 나가기 위한 class -> Record
+    // 외부로 데이터가 나가기 위한 class -> Record.
+    /*
+        private final Long id;
+        private final String title;
+        private final String content;
+        private final String author;
+        private final LocalDateTime createdAt;
+        private final LocalDateTime updatedAt;
+
+        // Entity → DTO 변환
+        public Response(Post post) {
+            this.id = post.getId();
+            this.title = post.getTitle();
+            this.content = post.getContent();
+            this.author = post.getAuthor();
+            this.createdAt = post.getCreatedAt();
+            this.updatedAt = post.getUpdatedAt();
+        }
+     */
     public record Response(Long id, String title, String content, String author, LocalDateTime createdAt, LocalDateTime updatedAt) {
-        // static으로 하면 Response를 만들지 않아도 변환해서 쓸 수 있음
+        // static -> Response를 만들지 않아도 변환해서 쓸 수 있게.
         public static Response fromEntity(Post post) {
             return new Response(
                     post.getId(),

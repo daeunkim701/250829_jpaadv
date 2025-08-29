@@ -5,10 +5,7 @@ import com.example.jpaadv.service.PostService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequiredArgsConstructor // 의존성주입
@@ -22,15 +19,18 @@ public class PostController {
         return "post/list"; // resources/templates/post/list.html
     }
 
-    @GetMapping("/new") // ("/")
+    @GetMapping("/new")
     public String createForm(Model model) {
+        // new PostDTO.SaveRequest() -> 빈 생성자
         model.addAttribute("post", new PostDTO.SaveRequest());
         return "post/form"; // resources/templates/post/form.html
     }
 
-    @PostMapping // ("/")
+    @PostMapping("/new")
     public String create(@ModelAttribute("post") PostDTO.SaveRequest dto) {
+        // new PostDTO.SaveRequest() -> 빈 생성자
         postService.save(dto);
-        return "redirect:/posts"; // resources/templates/post/list.html
+        // P-R-G
+        return "redirect:/posts";
     }
 }

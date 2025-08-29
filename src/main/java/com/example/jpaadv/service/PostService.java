@@ -48,7 +48,7 @@ public class PostService {
         Post post = postRepository.findById(id)
                 .orElseThrow(); // 없는 걸 업데이트할 순 없으니까
         post.update(dto.getTitle(), dto.getContent());
-        // 별도로 save하지 않아도 ㄱㅊ
+        // 별도로 save하지 않아도...
         return id;
     }
 

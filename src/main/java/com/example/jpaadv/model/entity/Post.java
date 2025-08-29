@@ -8,11 +8,12 @@ import lombok.NoArgsConstructor;
 @Entity
 @Getter
 @NoArgsConstructor
-public class Post extends BaseTimeEntity{
-    @Id@GeneratedValue(strategy = GenerationType.IDENTITY) // MySQL
+public class Post extends BaseTimeEntity {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY) // MySQL
     private Long id;
 
-    @Column(length = 500, nullable = false) // not null, 500
+    @Column(length = 500, nullable = false) // not null, 500.
     private String title;
     @Column(columnDefinition = "TEXT", nullable = false) // not null
     private String content;
@@ -26,7 +27,7 @@ public class Post extends BaseTimeEntity{
         this.author = author;
     }
 
-    // entity의 경우 setter 사용 지양을 위한 update
+    // entity의 경우 setter 사용 지양을 위한 update.
     public void update(String title, String content) {
         this.title = title;
         this.content = content;
