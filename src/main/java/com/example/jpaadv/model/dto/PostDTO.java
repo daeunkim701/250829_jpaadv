@@ -34,7 +34,8 @@ public class PostDTO {
     }
     // 외부로 데이터가 나가기 위한 class -> Record
     public record Response(Long id, String title, String content, String author, LocalDateTime createdAt, LocalDateTime updatedAt) {
-        public Response fromEntity(Post post) {
+        // static으로 하면 Response를 만들지 않아도 변환해서 쓸 수 있음
+        public static Response fromEntity(Post post) {
             return new Response(
                     post.getId(),
                     post.getTitle(),
