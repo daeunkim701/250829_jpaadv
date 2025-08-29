@@ -1,3 +1,7 @@
+# 포트 바꾸기
+# server:
+#   port: 8081
+
 # spring.application.name=jpaadv
 spring:
   application:
